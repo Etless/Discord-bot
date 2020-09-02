@@ -39,10 +39,17 @@ client.on('message', message => {
     try {
       client.commands.get(command).execute(message, args);
     } catch (error) {
-      message.reply('Huh?');
+      // Handle help command
+      if (command === 'help') {
+        var msg = "";
+        client.commands.forEach((name, command) => {
+          msg += name + " : " + command.description + "\r\n";
+        });
+        message.reply(msg);
+      } else message.reply('Huh?'); // Huh?
     }
   }
-  
+
   // Word detection
 });
 
