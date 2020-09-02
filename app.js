@@ -4,7 +4,7 @@ console.log('Initializing...');
 const fs = require('fs');
 
 // Load config file
-const {prefix, token} = require('config.json');
+const {prefix, token} = require('../config.json'); // ./config.json
 
 // Initialize discord api
 const Discord = require('discord.js');
@@ -14,7 +14,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 // Filter commands to only javascript files
-const commandFile = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
@@ -33,7 +33,7 @@ client.on('message', message => {
   // Commands
   if (message.content.startsWith(prefix)) {
     // Change message to array and use shift to remove command out of arguments.
-    const args = message.content.slice(prefix.lenght).trim().split(' ');
+    const args = message.content.slice(prefix.length).trim().split(' ');
     const command = args.shift().toLowerCase();
 
     try {
