@@ -1,4 +1,4 @@
 {
   "prefix" : "!",
-  "token" : "token-goes-here"
+  "token" : "${{secrets.SECRET_TOKEN}}" //token-goes-here
 }
