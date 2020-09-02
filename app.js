@@ -2,6 +2,7 @@ console.log('Initializing...');
 
 // Load required library
 const fs = require('fs');
+const member = require('./modules/member.js');
 
 // Load config file
 const {prefix, token} = require('../config.json'); // ./config.json
@@ -34,20 +35,18 @@ client.on('message', message => {
   if (message.content.startsWith(prefix)) {
     // Change message to array and use shift to remove command out of arguments.
     const args = message.content.slice(prefix.length).trim().split(' ');
-    const command = args.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase();
 
-    try {
-      client.commands.get(command).execute(message, args);
-    } catch (error) {
-      // Handle help command
-      if (command === 'help') {
-        var msg = "";
-        client.commands.forEach((name, command) => {
-          msg += name + " : " + command.description + "\r\n";
-        });
-        message.reply(msg);
-      } else message.reply('Huh?'); // Huh?
+    const command = client.commands.get(commandName);
+
+    if (!command) {
+      return message.reply('Huh?'); // Huh?
     }
+    // Check if command can only be called in guild
+    if (command.guildOnly && message.channel.type === 'dm')
+      return message.reply('I can\'t execute that command inside DMs!');
+
+    command.execute(message, args);
   }
 
   // Word detection
