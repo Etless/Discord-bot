@@ -1,10 +1,12 @@
+// fs path has the same path as the main javascript (app.js)
 const fs = require('fs');
 
 module.exports = class {
   constructor(member) {
     this.member = member;
-
     this._load();
+
+    this.balance = new Balance(this);
   }
 
   // Load json
@@ -18,17 +20,33 @@ module.exports = class {
       data = require('./template.json');
     }
     // Set json as data
-    this.json = data;
+    this._json = data;
   }
 
   // Save json
-  _save() {
+  save() {
+    this.balance._save();
     try {
       // Try to write json
-      fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this.json, null, 2), 'utf8');
-      console.log("Saved json to client : "+this.member.user.id);
+      fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this._json, null, 2), 'utf8');
+      console.log('Saved json to client : '+this.member.user.id);
     } catch(err) {
       console.log(err);
     }
+  }
+}
+
+// Handle balance of user
+class Balance {
+  constructor(user) {
+    this.user = user;
+    this.balance = user._json['balance'];
+  }
+
+  get()      { return this.balance }
+  add(money) { return this.balance += money}
+
+  _save() {
+    this.user._json['balance'] = this.balance;
   }
 }

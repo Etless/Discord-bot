@@ -2,7 +2,7 @@ console.log('Initializing...');
 
 // Load required library
 const fs = require('fs');
-const member = require('./modules/member.js');
+const User = require('./modules/user.js');
 
 // Load config file
 const {prefix, token} = require('../config.json'); // ./config.json
