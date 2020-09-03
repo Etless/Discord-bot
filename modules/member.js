@@ -12,7 +12,11 @@ module.exports = class {
     var data = {};
     try {
       // Try to load data
+<<<<<<< HEAD
       data = JSON.parse(fs.readFileSync('../data/'+this.member.user.id+'.json', 'utf8'));
+=======
+      data = JSON.parse(fs.readFileSync('../data/'+this.member.user.id+'.json'));
+>>>>>>> fb59bf1e91621328bfad6eed8f02ede9f97b58ea
     } catch (err) {
       // Use template.json for new members
       data = require('./template.json');
