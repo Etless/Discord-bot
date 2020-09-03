@@ -2,7 +2,8 @@ console.log('Initializing...');
 
 // Load required library
 const fs = require('fs');
-const User = require('./modules/user.js');
+const Detection = require('./modules/detection.js');
+const User = require('./modules/user/User.js');
 
 // Load config file
 const {prefix, token} = require('../config.json'); // ./config.json
@@ -50,6 +51,7 @@ client.on('message', message => {
   }
 
   // Word detection
+  Detection(message);
 });
 
 // Connect bot to account with token

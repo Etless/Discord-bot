@@ -1,4 +1,4 @@
-const User = require('../modules/user.js');
+const User = require('../modules/user/User.js');
 
 module.exports = {
   name: 'balance',
