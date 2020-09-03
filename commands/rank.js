@@ -1,11 +1,11 @@
 const User = require('../modules/user.js');
 
 module.exports = {
-  name: 'balance',
-  description: 'Get balance.',
+  name: 'rank',
+  description: 'Get your rank.',
   guildOnly: true,
   execute(message, args) {
     const user = new User(message.member);
-    message.reply('has '+user.balance.get()+' Holy points.');
+    message.reply(user.sin.get());
   },
 };

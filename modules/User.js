@@ -1,12 +1,15 @@
 // fs path has the same path as the main javascript (app.js)
 const fs = require('fs');
 
+const sinOmeter = require('./sinOmeter.js');
+
 module.exports = class {
   constructor(member) {
     this.member = member;
     this._load();
 
     this.balance = new Balance(this);
+    this.sin     = new sinOmeter(this);
   }
 
   // Load json
@@ -26,6 +29,7 @@ module.exports = class {
   // Save json
   save() {
     this.balance._save();
+    this.sin._save();
     try {
       // Try to write json
       fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this._json, null, 2), 'utf8');
@@ -43,8 +47,8 @@ class Balance {
     this.balance = user._json['balance'];
   }
 
-  get()      { return this.balance }
-  add(money) { return this.balance += money}
+  get()      { return this.balance; }
+  add(money) { return this.balance += money; }
 
   _save() {
     this.user._json['balance'] = this.balance;
