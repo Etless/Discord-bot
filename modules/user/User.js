@@ -1,7 +1,7 @@
 // fs path has the same path as the main javascript (app.js)
 const fs = require('fs');
 
-const sinOmeter = require('./sinOmeter.js');
+const saintOmeter = require('./saintOmeter.js');
 
 module.exports = class {
   constructor(member) {
@@ -9,7 +9,7 @@ module.exports = class {
     this._load();
 
     this.balance = new Balance(this);
-    this.sin     = new sinOmeter(this);
+    this.saint   = new saintOmeter(this);
   }
 
   // Load json
@@ -29,7 +29,7 @@ module.exports = class {
   // Save json
   save() {
     this.balance._save();
-    this.sin._save();
+    this.saint._save();
     try {
       // Try to write json
       fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this._json, null, 2), 'utf8');

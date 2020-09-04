@@ -6,6 +6,6 @@ module.exports = {
   guildOnly: true,
   execute(message, args) {
     const user = new User(message.member);
-    message.reply(user.sin.get());
+    message.reply(user.saint.get());
   },
 };

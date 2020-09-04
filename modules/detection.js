@@ -17,14 +17,14 @@ for (const file of Files) {
 }
 
 module.exports = function(message) {
-    const msg = message.content;
+    const msg = message.content.toLowerCase();
 
     for (const word of words) {
       if (msg.includes(word)) {
         console.log("Detected \""+word+"\"");
         message.reply("Bitch! I heard that!");
         const user = new User(message.member);
-        user.sin.add(punishment);
+        user.saint.add(punishment);
         user.save();
         return;
       }

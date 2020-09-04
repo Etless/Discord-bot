@@ -1,0 +1,1 @@
+add !fight command
