@@ -2,6 +2,7 @@
 const fs = require('fs');
 
 const saintOmeter = require('./saintOmeter.js');
+const Time = require('./Time.js');
 
 module.exports = class {
   constructor(member) {
@@ -10,6 +11,7 @@ module.exports = class {
 
     this.balance = new Balance(this);
     this.saint   = new saintOmeter(this);
+    this.time    = new Time(this);
   }
 
   // Load json
@@ -30,6 +32,7 @@ module.exports = class {
   save() {
     this.balance._save();
     this.saint._save();
+    this.time._save();
     try {
       // Try to write json
       fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this._json, null, 2), 'utf8');
