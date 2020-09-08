@@ -15,6 +15,11 @@ module.exports = class {
     this.sin += points;
     if (this.sin < min) this.sin = min;
     if (this.sin > max) this.sin = max;
+
+    // Check what role user should be
+    if (this.sin > 0) this.user.role.set(0);
+    if (this.sin < 0) this.user.role.set(1);
+
     return this.sin;
   }
 

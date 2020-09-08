@@ -1,9 +1,11 @@
 // fs path has the same path as the main javascript (app.js)
 const fs = require('fs');
+const jsonTemplate = JSON.stringify(require('./template.json'));
 
 // Load classes
 const saintOmeter = require('./saintOmeter.js');
-const Time = require('./Time.js');
+const Time   = require('./Time.js');
+const {Role} = require('../Role.js')
 
 module.exports = class {
   constructor(member) {
@@ -14,6 +16,7 @@ module.exports = class {
     this.balance = new Balance(this);
     this.saint   = new saintOmeter(this);
     this.time    = new Time(this);
+    this.role    = new Role(this);
   }
 
   // Load json
@@ -24,7 +27,7 @@ module.exports = class {
       data = JSON.parse(fs.readFileSync('../data/'+this.member.user.id+'.json', 'utf8'));
     } catch (err) {
       // Use template.json for new members
-      data = require('./template.json');
+      data = JSON.parse(jsonTemplate);
     }
     // Set json as data
     this._json = data;
@@ -36,6 +39,8 @@ module.exports = class {
     this.balance._save();
     this.saint._save();
     this.time._save();
+    this.role._save();
+
     try {
       // Try to write json
       fs.writeFileSync('../data/'+this.member.user.id+'.json', JSON.stringify(this._json, null, 2), 'utf8');
