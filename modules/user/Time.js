@@ -4,6 +4,7 @@ module.exports = class {
     this.time = user._json['pray']['timestamp'];
   }
 
+  // Timestamp "operators"
   get() { return this.time; }
   now() { this.time = new Date().getTime(); }
   diff() {
@@ -12,6 +13,7 @@ module.exports = class {
     return diff;
   }
 
+  // Save timestamp to _json
   _save() {
     this.user._json['pray']['timestamp'] = this.time;
   }

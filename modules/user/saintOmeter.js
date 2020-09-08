@@ -6,9 +6,10 @@ const max =  100;
 module.exports = class {
   constructor(user) {
     this.user = user;
-    this.sin = user._json['sin_points'];
+    this.sin = user._json['saint_points'];
   }
 
+  // Points "operators"
   get() { return this.sin; }
   add(points) {
     this.sin += points;
@@ -17,7 +18,8 @@ module.exports = class {
     return this.sin;
   }
 
+  // Save points to _json
   _save() {
-    this.user._json['sin_points'] = this.sin;
+    this.user._json['saint_points'] = this.sin;
   }
 }

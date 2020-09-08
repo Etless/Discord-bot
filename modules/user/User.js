@@ -1,6 +1,7 @@
 // fs path has the same path as the main javascript (app.js)
 const fs = require('fs');
 
+// Load classes
 const saintOmeter = require('./saintOmeter.js');
 const Time = require('./Time.js');
 
@@ -9,6 +10,7 @@ module.exports = class {
     this.member = member;
     this._load();
 
+    // Load classes from json
     this.balance = new Balance(this);
     this.saint   = new saintOmeter(this);
     this.time    = new Time(this);
@@ -30,6 +32,7 @@ module.exports = class {
 
   // Save json
   save() {
+    // Save classes to json
     this.balance._save();
     this.saint._save();
     this.time._save();
@@ -50,9 +53,11 @@ class Balance {
     this.balance = user._json['balance'];
   }
 
+  // Balance "operators"
   get()      { return this.balance; }
   add(money) { return this.balance += money; }
 
+  // Save balance to _json
   _save() {
     this.user._json['balance'] = this.balance;
   }

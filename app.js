@@ -15,7 +15,7 @@ const client = new Discord.Client();
 // Add collection of commands to client (bot)
 client.commands = new Discord.Collection();
 
-// Filter commands to only javascript files
+// Filter commands from only javascript files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
