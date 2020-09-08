@@ -71,24 +71,7 @@ module.exports.Role = class {
 
     // Set new role
     this.role = role;
-
-    // Create array for roles 'Saints' and 'Sinners'
-    var roles = [];
-    var member = this.user.member;
-    roles[0] = member.guild.roles.cache.filter(item => item.name === 'Saints').firstKey();
-    roles[1] = member.guild.roles.cache.filter(item => item.name === 'Sinners').firstKey();
-
-    // Remove member form roles if role is -1
-    if (this.role < 0) {
-      roles.forEach(item => {
-        member.roles.remove(item);
-      });
-      return;
-    }
-
-    // Add member to choosen role and remove it from the other
-    member.roles.add(roles[this.role]);
-    member.roles.remove(roles[1-this.role]);
+    this.update();
   }
 
   // Save role to _json
