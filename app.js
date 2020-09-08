@@ -47,6 +47,10 @@ client.on('message', message => {
     if (command.guildOnly && message.channel.type === 'dm')
       return message.reply('I can\'t execute that command inside DMs!');
 
+    // Check if command can only be called by the owner
+    if (command.adminOnly && message.author.id !== message.guild.ownerID)
+      return message.reply('Only the owner of the guild can execute that command!');
+
     command.execute(message, args);
   }
 

@@ -1,13 +1,11 @@
-const User = require('../modules/user/User.js');
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+const User   = require('../modules/user/User.js');
+const Random = require('../modules/util/Random.js')
 
 module.exports = {
   name: 'pray',
   description: 'Prayed for forgiveness.',
   guildOnly: true,
+  adminOnly: false,
   execute(message, args) {
     const _reply = ["Prayed for forgiveness :pray:","Read the bible :book:"];
 
@@ -17,7 +15,7 @@ module.exports = {
     if (diff >= 2) {
       user.saint.add(10);
       user.time.now();
-      message.channel.send(`${message.author}`+" "+_reply[getRandomInt(2)]);
+      message.channel.send(`${message.author}`+" "+_reply[Random.nextInt(2)]);
     } else {
       // Calculate time left
       const hour = Math.floor(diff);
