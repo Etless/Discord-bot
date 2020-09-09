@@ -55,7 +55,7 @@ client.on('message', message => {
   }
 
   // Word detection
-  Detection(message);
+  if (message.channel.type !== 'dm') Detection(message);
 });
 
 // Connect bot to account with token
