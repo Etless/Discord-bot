@@ -9,8 +9,9 @@ module.exports = {
   execute(message, args) {
     // Create roles and wait for the roles to be updated
     create(message.guild).then(bool => {
-      if (bool) message.channel.send("Roles created.");
-      else      message.channel.send("Roles are already created.");
+      var reply = "";
+      if (bool) reply = 'Roles created.';
+      else      reply = 'Roles are already created.';
 
       // Loop through members and update their roles
       var members = message.guild.members.cache;
@@ -21,6 +22,9 @@ module.exports = {
           user.role.update();
         }
       });
+
+      reply += '\r\nUsers updated.';
+      message.channel.send(reply);
     });
   },
 };
