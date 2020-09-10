@@ -52,6 +52,8 @@ module.exports.Role = class {
     roles[0] = member.guild.roles.cache.filter(item => item.name === 'Saints').firstKey();
     roles[1] = member.guild.roles.cache.filter(item => item.name === 'Sinners').firstKey();
 
+    if (roles[0] == null || roles[1] == null) return;
+
     // Remove member form roles if role is -1
     if (this.role < 0) {
       roles.forEach(item => {
@@ -67,8 +69,9 @@ module.exports.Role = class {
   set(role) {
     // Return if member already is in this role or
     // if role is too high of a number
-    if (this.role === role || role >= 2) return;
-
+    if (role >= 2) return;
+    if (this.role === role && !this.user.member.guild.roles.cache.some(item => item.name === (this.role === 0 ? 'Saints' : 'Sinners'))) return; //wip
+    
     // Set new role
     this.role = role;
     this.update();
