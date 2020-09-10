@@ -2,7 +2,7 @@ console.log('Initializing...');
 
 // Load required library
 const fs = require('fs');
-const Detection = require('./modules/detection.js');
+const Detection = require('./modules/Detection.js');
 const User = require('./modules/user/User.js');
 
 // Load config file
@@ -35,8 +35,8 @@ client.on('message', message => {
   // Commands
   if (message.content.startsWith(prefix)) {
     // Change message to array and use shift to remove command out of arguments.
-    const args = message.content.slice(prefix.length).trim().split(' ');
-    const commandName = args.shift().toLowerCase();
+    const args = message.content.slice(prefix.length).toLowerCase().trim().split(' ');
+    const commandName = args.shift();
 
     const command = client.commands.get(commandName);
 
@@ -55,7 +55,7 @@ client.on('message', message => {
   }
 
   // Word detection
-  if (message.channel.type !== 'dm') Detection(message);
+  if (message.channel.type !== 'dm' && !message.channel.nsfw) Detection(message);
 });
 
 // Connect bot to account with token
